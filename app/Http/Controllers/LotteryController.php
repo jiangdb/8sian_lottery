@@ -13,7 +13,7 @@ class LotteryController extends Controller
     {
         $settings = LotterySettings::find(1);
         $result['status'] = 0;
-        if ($settings->lottery_status) {
+        if (!empty($settings) && $settings->lottery_status) {
             $result['status'] = 1;
         }
         return response()->json($result);
