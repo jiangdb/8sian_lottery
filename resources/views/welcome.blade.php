@@ -33,7 +33,7 @@
 
     <!-- ROCK ON -->
     <script>
-      $.lottery({
+      var lottery = $.lottery({
         el: '.lotterybox',
         api: '/sample-data.json',
         once: true,
@@ -43,6 +43,35 @@
         timeout: 5,
         speed: 100
       });
+      $(document).ready(function(){
+        checkStart();
+      });
+      var checkStart = function(){
+        var started = false;
+        setInterval(function(){
+            $.ajax({
+                type: "GET",
+                url: "{{ route('lottery.check_start') }}",
+                dataType: 'json',
+                success: function(data){
+                    if (data.status == 0) {
+                        if(started) {
+                            lottery.stop();
+                            started = false;
+                        }
+                    } else {
+                        if (!started) {
+                            lottery.start();
+                            started = true;
+                        }
+                    }
+                },
+                error: function(xhr, type){
+                    alert('Lottery: Load player list error!\n'+type+'\n'+type);
+                }
+                })
+            },300);
+        }
     </script>
 
 </body>

@@ -481,6 +481,7 @@
         if (!options.number && localStorage.lotteryConfigNumber) {
           settings.number = parseInt(localStorage.lotteryConfigNumber) || 1
         }
+        return controller;
       },
       // 抽奖
       start : function (){
