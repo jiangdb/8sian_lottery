@@ -114,8 +114,8 @@
 .dh-lottery .avatar .image {
 	margin: 0 auto;
 	display: inline-block;
-	height: 128px;
-  width: 128px;
+	height: 32px;
+  width: 32px;
   position: relative;
 }
 
@@ -133,8 +133,8 @@
 	border: 4px solid #FFF;
 	border-radius: 100%;
 	box-sizing: content-box;
-	height: 128px;
-	width: 128px;
+	height: 32px;
+	width: 32px;
 	/*box-shadow: 0 0 100px 3000px rgba(10, 10, 10, 0.3);*/
 }
 
