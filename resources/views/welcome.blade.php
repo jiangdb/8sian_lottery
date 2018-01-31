@@ -40,7 +40,6 @@
         title: "name",
         subtitle: "company",
         // desc: "title",
-        timeout: 5,
         speed: 100,
         user: "{{ Auth::user()->id }}",
       });
@@ -57,19 +56,16 @@
                 success: function(data){
                     if (data.status == 0) {
                         if(started) {
-                            lottery.stop();
+                            lottery.stop(data.winners);
                             started = false;
                         }
                     } else {
                         if (!started) {
-                            lottery.start();
+                            lottery.start(data.count);
                             started = true;
                         }
                     }
                 },
-                error: function(xhr, type){
-                    alert('Lottery: Load player list error!\n'+type+'\n'+type);
-                }
                 })
             },500);
         }

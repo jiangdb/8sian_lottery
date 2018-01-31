@@ -341,7 +341,7 @@
       currentTarget.push(targetIndex);
     }
   
-    var stopLottery = function(){
+    var stopLottery = function(winners, flag){
       settings.$el.removeClass('running-lottery')
       console.log('Lottery: stoping...');
       clearTimeout(lotteryTimeout);
@@ -368,15 +368,22 @@
       }
       clearInterval(lotteryInterval);
       console.log("Lottery: Ignore user #",settings.winnerList);
-      if(settings.confetti){
-        window.startConfetti();
+      if (flag == 'win') {
+        if(settings.confetti){
+          window.startConfetti();
+          setTimeout(function() {
+            return window.stopConfetti();
+          }, 1500);
+        }
         setTimeout(function() {
-          return window.stopConfetti();
-        }, 1500);
+          return $('#dh-lottery-winner').addClass('is-active');
+        }, 700);
+      } else {
+        setTimeout(function() {
+          return $('#dh-lottery-loser').addClass('is-active');
+        }, 700);
       }
-      setTimeout(function() {
-        return $('#dh-lottery-winner').addClass('is-active');
-      }, 700);
+
       lotteryInterval = null;
       $('#dh-lottery-go').removeClass('success').addClass('primary').html(diceIconHtml);
       // 保存中奖信息到中奖纪录
@@ -484,12 +491,18 @@
         return controller;
       },
       // 抽奖
-      start : function (){
+      start : function (count){
+        settings.number = count;
         return startLottery();
       },
       // 停，返回中奖用户
-      stop : function (){
-        return stopLottery();
+      stop : function (winners){
+        if (winners.indexOf(settings.user) > -1) {
+          flag = 'win';
+        } else {
+          flag = 'lose';
+        }
+        return stopLottery(winners, flag);
       },
       // 获取用户列表
       getUsers : function(){
