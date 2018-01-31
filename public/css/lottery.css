@@ -13,6 +13,10 @@
 	padding: 20px 10px 15px;
 	min-height: 100%;
     box-sizing: border-box;
+    background-image: url('/img/abstract-1780285_960_720.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .dh-lottery *{
@@ -305,10 +309,9 @@
   max-height: calc(100vh - 40px);
 	overflow-y: auto;
 	width: 90%;
-  padding: 5%;
+  padding: 60px 5% 5%;
   display: flex;
   flex-flow: column;
-  margin-top: 60px;
 }
 
 .dh-modal-content.dh-morewinner {
@@ -333,6 +336,12 @@
   text-align: center;
   float: none;
   margin: 0 auto;
+  width: 120px;
+    height: 120px;
+}
+
+.dh-modal-content.dh-solowinner .avatar-image>img {
+	border: 4px solid #FFC825;
 }
 
 .dh-modal-content.dh-morewinner .profile-item{
@@ -363,18 +372,17 @@
     display: inline-block;
     z-index: 2;
     position: absolute;
-    top: -27px;
+    top: -45px;
     left: 50%;
     transform: rotate(10deg);
     overflow: hidden;
     margin: 0;
-    margin-left: -19px;
-    width: 100px;
+    margin-left: -20px;
 }
 
 .dh-modal-content .avatar-image svg{
-	width: 30px;
-	height: 30px;
+	width: 48px;
+	height: 48px;
 }
 
 .dh-modal-content .avatar-image>img {
@@ -386,7 +394,7 @@
 }
 
 .dh-modal-content .profile-name {
-	font-size: 14px;
+	font-size: 16px;
 	color: #eee;
 	margin: 5px 0 16px 0;
 	font-weight: normal;
@@ -522,7 +530,7 @@
     width: calc(90%);
     display: flex;
     justify-content: center;
-    display: none;
+    /*display: none;*/
 }
 
 
