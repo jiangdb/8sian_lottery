@@ -23,9 +23,21 @@
                             {{method_field('PUT')}}
                             <input type="hidden" name="id" value="1">
                             <div class="form-group">
+                                <label for="winners_count" class="col-md-3 control-label">奖项级别：</label>
+                                <div class="col-md-6">
+                                    <input id="prize_grade" type="number" class="form-control" name="prize_grade" value="{{ !empty($settings) ? $settings->prize_grade : 0 }}" required autofocus style="width:86%; float:left;"><span style="float: left; margin-top:10px;">等奖</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="winners_count" class="col-md-3 control-label">中奖人数：</label>
                                 <div class="col-md-6">
                                     <input id="winners_count" type="number" class="form-control" name="winners_count" value="{{ !empty($settings) ? $settings->winners_count : 0 }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="winners_count" class="col-md-3 control-label"></label>
+                                <div class="col-md-6">
+                                    <input type="checkbox" name="allow_winners" {{ (!empty($settings) && $settings->allow_winners == 1) ? 'checked' : '' }} value="1" style="width: 30px; height: 30px; float: left;"><label for="allow_winners" style="position:relative; top:7px;">允许中奖人参与</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -37,7 +49,7 @@
                             </div>
                         </form>
                     </div>
-
+                    @if(!empty($settings))
                     <div class="panel-body" style="border-top: 1px solid #ccc;">
                         <form class="form-horizontal" method="POST" action="{{ route('lottery.set_start') }}">
                             {{csrf_field()}}
@@ -78,6 +90,7 @@
                             </div>
                         </form>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

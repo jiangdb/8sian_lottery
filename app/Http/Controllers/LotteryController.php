@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LotterySettings;
+use App\Models\LotteryUsers;
 use App\Models\Winners;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,6 +31,20 @@ class LotteryController extends Controller
     public function setStop(Request $request)
     {
         $settings = LotterySettings::find($request->id);
+
+        if ($settings->allow_winners) {
+            $users = LotteryUsers::all();
+        } else {
+            $users = LotteryUsers::whereRaw('id NOT IN (SELECT uid FROM winners)')->get();
+        }
+        $random_ids = array_random($users->pluck('id')->toArray(), $settings->winners_count);
+        foreach ($random_ids as $id) {
+            Winners::create([
+                'uid' => $id,
+                'grade' => $settings->prize_grade
+            ]);
+        }
+
         $settings->lottery_status = 0;
         $settings->save();
         return redirect(route('lottery.setting'));
@@ -37,8 +52,8 @@ class LotteryController extends Controller
 
     public function currentWinners(Request $request)
     {
-        $request->grade = 1;
-        $winners = Winners::with('lottery_users')->where('grade', $request->grade)->get();
+        $settings = LotterySettings::find(1);
+        $winners = Winners::with('lottery_users')->where('grade', $settings->prize_grade)->get()->pluck('uid');
         $result['status'] = 'succ';
         $result['winners'] = $winners;
         return response()->json($result);
@@ -53,12 +68,17 @@ class LotteryController extends Controller
     public function storeSetting(Request $request)
     {
         $settings = LotterySettings::find($request->id);
+        $allow_winners = $request->allow_winners ?? 0;
         if ($settings == null) {
             LotterySettings::create([
-                'winners_count' => $request->winners_count
+                'winners_count' => $request->winners_count,
+                'prize_grade' => $request->prize_grade,
+                'allow_winners' => $allow_winners,
             ]);
         } else {
             $settings->winners_count = $request->winners_count;
+            $settings->prize_grade = $request->prize_grade;
+            $settings->allow_winners = $allow_winners;
             $settings->save();
         }
         return redirect(route('lottery.setting'));
