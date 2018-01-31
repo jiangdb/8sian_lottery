@@ -15,4 +15,9 @@ class Winners extends Model
     protected $fillable = [
         'uid', 'grade'
     ];
+
+    public function lottery_users()
+    {
+        return $this->belongsTo(LotteryUsers::class, 'uid');
+    }
 }
