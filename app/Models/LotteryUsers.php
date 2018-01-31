@@ -15,4 +15,9 @@ class LotteryUsers extends Model
     protected $fillable = [
         'name', 'avatar'
     ];
+
+    public function winners()
+    {
+
+    }
 }
