@@ -13,7 +13,7 @@ class Winners extends Model
      * @var array
      */
     protected $fillable = [
-        'uid', 'grade'
+        'uid', 'grade', 'grade_times'
     ];
 
     public function lottery_users()

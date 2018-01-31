@@ -19,7 +19,10 @@ class LotteryController extends Controller
                 $result['status'] = 1;
                 $result['count'] = $settings->winners_count;
             } else {
-                $winners = Winners::with('lottery_users')->where('grade', $settings->prize_grade)->get();
+                $winners = Winners::with('lottery_users')
+                    ->where('grade', $settings->prize_grade)
+                    ->where('grade_times', $settings->prize_grade_times)
+                    ->get();
                 if (!empty($winners)) {
                     $result['winners'] = $winners->pluck('uid');
                 } else {
@@ -35,6 +38,11 @@ class LotteryController extends Controller
     public function setStart(Request $request)
     {
         $settings = LotterySettings::find($request->id);
+        if ($settings->prize_grade == $request->prize_grade) {
+            $settings->prize_grade_times += 1;
+        } else {
+            $settings->prize_grade_times = 0;
+        }
         $settings->lottery_status = 1;
         $settings->save();
         return redirect(route('lottery.setting'));
@@ -49,12 +57,21 @@ class LotteryController extends Controller
         } else {
             $users = LotteryUsers::whereRaw('id NOT IN (SELECT uid FROM winners)')->get();
         }
-        $random_ids = array_random($users->pluck('id')->toArray(), $settings->winners_count);
-        foreach ($random_ids as $id) {
-            Winners::create([
-                'uid' => $id,
-                'grade' => $settings->prize_grade
-            ]);
+        $ids = $users->pluck('id')->toArray();
+        if (count($ids) < $settings->winners_count) {
+            $winners_count = count($ids);
+        } else {
+            $winners_count = $settings->winners_count;
+        }
+        if ($winners_count > 0) {
+            $random_ids = array_random($ids, $winners_count);
+            foreach ($random_ids as $id) {
+                Winners::create([
+                    'uid' => $id,
+                    'grade' => $settings->prize_grade,
+                    'grade_times' => $settings->prize_grade_times
+                ]);
+            }
         }
 
         $settings->lottery_status = 0;
@@ -62,17 +79,18 @@ class LotteryController extends Controller
         return redirect(route('lottery.setting'));
     }
 
-    public function winners()
-    {
-        $winners = Winners::with('lottery_users')->get();
-        $result['status'] = 'succ';
-        $result['winners'] = $winners;
-        return response()->json($result);
-    }
-
     public function setting()
     {
         $settings = LotterySettings::find(1);
+        if ($settings != null) {
+            if ($settings->allow_winners) {
+                $count = LotteryUsers::all()->count();
+            } else {
+                $count = LotteryUsers::whereRaw('id NOT IN (SELECT uid FROM winners)')->count();
+            }
+            $settings->can_take_persons = $count;
+        }
+
         return view('settings', compact('settings'));
     }
 

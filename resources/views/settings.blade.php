@@ -41,8 +41,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-8" style="text-align: center;">
-                                    <button type="submit" class="btn btn-primary" style="width: 60%; height:50px;">
+                                <div class="col-md-8" style="text-align: center; float:none; margin: 0 auto;">
+                                    <button type="submit" class="btn btn-primary" style="width: 100%; height:50px;">
                                         提交
                                     </button>
                                 </div>
@@ -58,20 +58,24 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">中奖人数：{{ $settings->winners_count }}</label>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">参加人数：{{ $settings->can_take_persons }}</label>
+                        </div>
                     </div>
                     <div class="panel-body" style="border-top: 1px solid #ccc;">
                         <form class="form-horizontal" method="POST" action="{{ route('lottery.set_start') }}">
                             {{csrf_field()}}
                             {{method_field('PUT')}}
                             <input type="hidden" name="id" value="1">
+                            <input type="hidden" name="prize_grade" value="{{ $settings->prize_grade }}">
                             <div class="form-group" style="margin-top:15px;">
-                                <div class="col-md-8" style="text-align: center;">
+                                <div class="col-md-8" style="text-align: center; float:none; margin: 0 auto;">
                                     @if($settings && $settings->lottery_status == 1)
-                                        <button type="submit" class="btn btn-primary" disabled style="width: 60%; height:50px;">
+                                        <button type="submit" class="btn btn-primary" disabled style="width: 100%; height:50px;">
                                             已开始
                                         </button>
                                     @else
-                                        <button type="submit" class="btn btn-primary" style="width: 60%; height:50px;">
+                                        <button type="submit" class="btn btn-primary" style="width: 100%; height:50px;">
                                             开始
                                         </button>
                                     @endif
@@ -85,13 +89,13 @@
                             {{method_field('PUT')}}
                             <input type="hidden" name="id" value="1">
                             <div class="form-group">
-                                <div class="col-md-8" style="text-align: center;">
+                                <div class="col-md-8" style="text-align: center; float:none; margin: 0 auto;">
                                     @if($settings && $settings->lottery_status == 0)
-                                        <button type="submit" class="btn btn-primary" disabled style="width: 60%; height:50px;">
+                                        <button type="submit" class="btn btn-primary" disabled style="width: 100%; height:50px;">
                                             已结束
                                         </button>
                                     @else
-                                        <button type="submit" class="btn btn-primary" style="width: 60%; height:50px;">
+                                        <button type="submit" class="btn btn-primary" style="width: 100%; height:50px;">
                                             结束
                                         </button>
                                     @endif
