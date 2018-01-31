@@ -17,6 +17,9 @@ class LotteryController extends Controller
         if (!empty($settings) && $settings->lottery_status) {
             $result['status'] = 1;
             $result['count'] = $settings->winners_count;
+        } else {
+            $winners = Winners::with('lottery_users')->where('grade', $settings->prize_grade)->get()->pluck('uid');
+            $result['winners'] = $winners;
         }
         return response()->json($result);
     }
@@ -49,15 +52,6 @@ class LotteryController extends Controller
         $settings->lottery_status = 0;
         $settings->save();
         return redirect(route('lottery.setting'));
-    }
-
-    public function currentWinners(Request $request)
-    {
-        $settings = LotterySettings::find(1);
-        $winners = Winners::with('lottery_users')->where('grade', $settings->prize_grade)->get()->pluck('uid');
-        $result['status'] = 'succ';
-        $result['winners'] = $winners;
-        return response()->json($result);
     }
 
     public function winners()
