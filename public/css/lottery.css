@@ -10,9 +10,13 @@
     -webkit-font-smoothing: antialiased;
     min-width: 300px;
 	text-rendering: optimizeLegibility;
-	padding: 15px 10px;
+	padding: 20px 10px 15px;
 	min-height: 100%;
     box-sizing: border-box;
+    background-image: url('/img/abstract-1780285_960_720.png');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .dh-lottery *{
@@ -30,7 +34,7 @@
 		height: 36px;
     	width: 36px;
     	color: #FFC825;
-    	margin: 12px;
+    	margin: 7px;
 	}
 
 	.is-mac .dh-icon-dice {
@@ -128,9 +132,9 @@
 #dh-lottery-selector .image {
 	display: none;
 	position: absolute;
-	left: 0;
-	top: 0;
-	border: 4px solid #FFF;
+	left: 1px;
+	top: 1px;
+	border: 3px solid #FFF;
 	border-radius: 100%;
 	box-sizing: content-box;
 	height: 48px;
@@ -139,22 +143,21 @@
 }
 
 .dh-lottery .actions {
-	position: absolute;
-	right: 20px;
-	bottom: 20px;
-	display: flex;
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
 }
 
 .dh-lottery .actions .button {
 	display: block;
-	width: 60px;
-	height: 60px;
-	line-height: 60px;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
 	text-align: center;
-	border-radius: 80px;
+	border-radius: 15px;
 	font-size: 56px;
 	cursor: hand;
-	margin-left: 20px;
+	margin: 0 10px;
 }
 
 .dh-lottery .actions .button.primary{
@@ -200,7 +203,7 @@
     flex-grow: 1;
     -ms-flex-negative: 1;
     flex-shrink: 1;
-    padding: 1vw;
+    padding: 6px;
 }
 
 .dh-modal-close{
@@ -306,10 +309,9 @@
   max-height: calc(100vh - 40px);
 	overflow-y: auto;
 	width: 90%;
-  padding: 5%;
+  padding: 60px 5% 5%;
   display: flex;
   flex-flow: column;
-  margin-top: 60px;
 }
 
 .dh-modal-content.dh-morewinner {
@@ -334,6 +336,12 @@
   text-align: center;
   float: none;
   margin: 0 auto;
+  width: 120px;
+    height: 120px;
+}
+
+.dh-modal-content.dh-solowinner .avatar-image>img {
+	border: 4px solid #FFC825;
 }
 
 .dh-modal-content.dh-morewinner .profile-item{
@@ -356,6 +364,7 @@
 .dh-modal-content.dh-morewinner .avatar-image{
   width: 60px;
   height: 60px;
+  margin: 0 auto;
 }
 
 .dh-modal-content .avatar-image>h1 {
@@ -363,18 +372,17 @@
     display: inline-block;
     z-index: 2;
     position: absolute;
-    top: -34px;
+    top: -45px;
     left: 50%;
-    transform: rotate(5deg);
+    transform: rotate(10deg);
     overflow: hidden;
     margin: 0;
-    margin-left: -24px;
-    width: 100px;
+    margin-left: -20px;
 }
 
 .dh-modal-content .avatar-image svg{
-	width: 36px;
-	height: 36px;
+	width: 48px;
+	height: 48px;
 }
 
 .dh-modal-content .avatar-image>img {
@@ -388,9 +396,10 @@
 .dh-modal-content .profile-name {
 	font-size: 16px;
 	color: #eee;
-	margin: 0 0 16px 0;
+	margin: 5px 0 16px 0;
 	font-weight: normal;
 	    overflow: hidden;
+	    text-align: center;
 }
 
 .dh-modal-content .profile-subtitle {
@@ -421,10 +430,11 @@
 	overflow-x: hidden;
 	width: 100%;
 	color: #fff;
+	padding: 0;
 }
 
 #dh-lottery-history .dh-history-item{
-	padding: 0 10px 15px;
+	padding: 0 0 15px;
 	border-bottom: solid 1px rgba(255, 255, 255, .3);
 }
 
@@ -435,6 +445,8 @@
 
 #dh-lottery-history .dh-history-item .dh-history-info p{
 	line-height: 40px;
+	margin-top: 15px;
+	margin-bottom: 8px;
 }
 
 #dh-lottery-history .dh-history-item .dh-history-info h1{
@@ -453,18 +465,27 @@
 
 #dh-lottery-history .dh-history-item .dh-history-user>div{
 	display: inline-block;
-	padding: 6px;
+	padding: 8px 6px;
 	width: 25%;
 	text-align: center;
 	overflow: hidden;
+	font-size: 14px;
 }
 
 #dh-lottery-history .dh-history-item .dh-history-user .avatar{
 	border-radius: 100%;
+	margin-bottom: 5px;
+}
+
+#dh-lottery-history .dh-history-item .dh-history-user .name{
+	font-weight: 400;
+	font-size: 14px;
 }
 
 .dh-history-user .avatar .avatar-image{
   float: none;
+	height: 60px;
+    width: 60px;
 }
 
 .dh-modal-btn{
@@ -509,7 +530,7 @@
     width: calc(90%);
     display: flex;
     justify-content: center;
-    display: none;
+    /*display: none;*/
 }
 
 
