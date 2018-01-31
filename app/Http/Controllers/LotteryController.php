@@ -59,6 +59,14 @@ class LotteryController extends Controller
         return response()->json($result);
     }
 
+    public function winners()
+    {
+        $winners = Winners::with('lottery_users')->get();
+        $result['status'] = 'succ';
+        $result['winners'] = $winners;
+        return response()->json($result);
+    }
+
     public function setting()
     {
         $settings = LotterySettings::find(1);
@@ -82,5 +90,22 @@ class LotteryController extends Controller
             $settings->save();
         }
         return redirect(route('lottery.setting'));
+    }
+
+    public function makeUserJsonData()
+    {
+        $users = LotteryUsers::all();
+        $datas = array();
+        foreach ($users as $user) {
+            array_push($datas, [
+                'name' => $user->name,
+                'avatar' => $user->avatar,
+                'data' => array('id' => $user->id)
+            ]);
+        }
+        $path = public_path().'/users-data.json';
+        $fp = fopen($path, 'w');
+        fwrite($fp, json_encode($datas));
+        fclose($fp);
     }
 }

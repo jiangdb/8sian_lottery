@@ -22,4 +22,6 @@ Route::group(['prefix' => '/lottery', 'as' => 'lottery.'], function () {
     Route::get('winners', 'LotteryController@currentWinners')->name('current_winners');
     Route::get('setting', 'LotteryController@setting')->name('setting');
     Route::put('setting', 'LotteryController@storeSetting')->name('store_setting');
+    Route::get('all_winners', 'LotteryController@winners')->name('winners');
+    Route::get('users', 'LotteryController@makeUserJsonData')->name('users');
 });
