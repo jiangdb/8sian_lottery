@@ -16,7 +16,12 @@
 </head>
 
 <body>
+
     <div class="lotterybox"></div>
+    <div id="video-bg">
+        <video width="auto" height="auto" src="/video/414X800-2m.mp4" autoplay="" loop="">
+        </video>
+    </div>
 
     <!-- Zepto or jQuery -->
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
