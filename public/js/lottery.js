@@ -361,13 +361,18 @@
       $("#dh-lottery-winner .dh-modal-content").html("");
       settings.winners = [];
       // 更新本轮中奖者信息
-      for (var i = 0; i < currentTarget.length; i++) {
-        var winnerProfile = JSON.parse(decodeURIComponent($($('.profile')[currentTarget[i]]).data('profile')));
-        var userId = winnerProfile['id'];
-        settings.winners[userId] = winnerProfile;
-        settings.winnerList[userId] = winnerProfile;//储存本轮中奖者到历史中奖者名单，以筛除重复中奖
-        pushWinner(winnerProfile);
+      if (flag == 'win') {
+        for (var i = 0; i < currentTarget.length; i++) {
+          var winnerProfile = JSON.parse(decodeURIComponent($($('.profile')[currentTarget[i]]).data('profile')));
+          var userId = winnerProfile['id'];
+          settings.winners[userId] = winnerProfile;
+          settings.winnerList[userId] = winnerProfile;//储存本轮中奖者到历史中奖者名单，以筛除重复中奖
+          pushWinner(winnerProfile);
+        }
+      } else {
+        pushLoser();
       }
+
       // 根据中奖者人数调整双栏布局和文字大小
       $("#dh-lottery-winner .dh-modal-content").removeClass('dh-morewinner').removeClass('dh-solowinner');
 
@@ -387,14 +392,10 @@
             return window.stopConfetti();
           }, 1500);
         }
-        setTimeout(function() {
-          return $('#dh-lottery-winner').addClass('is-active');
-        }, 700);
-      } else {
-        setTimeout(function() {
-          return $('#dh-lottery-loser').addClass('is-active');
-        }, 700);
       }
+      setTimeout(function() {
+        return $('#dh-lottery-winner').addClass('is-active');
+      }, 700);
 
       lotteryInterval = null;
       $('#dh-lottery-go').removeClass('success').addClass('primary').html(diceIconHtml);
