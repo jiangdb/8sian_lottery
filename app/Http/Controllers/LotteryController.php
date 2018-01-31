@@ -87,7 +87,7 @@ class LotteryController extends Controller
         return redirect(route('lottery.setting'));
     }
 
-    public function makeUserJsonData()
+    public function users()
     {
         $users = LotteryUsers::all();
         $datas = array();
@@ -98,9 +98,8 @@ class LotteryController extends Controller
                 'data' => array('id' => $user->id)
             ]);
         }
-        $path = public_path().'/users-data.json';
-        $fp = fopen($path, 'w');
-        fwrite($fp, json_encode($datas));
-        fclose($fp);
+        $result['status'] = 'succ';
+        $result['users'] = $datas;
+        return response()->json($result);
     }
 }
