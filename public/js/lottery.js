@@ -504,6 +504,7 @@
       },
       // 抽奖
       start : function (count){
+        settings.winnerList = [];
         settings.number = count;
         return startLottery();
       },
