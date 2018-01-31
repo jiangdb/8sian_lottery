@@ -352,8 +352,8 @@
       moveToTarget(selector,targetIndex);
       currentTarget.push(targetIndex);
     }
-
-    var stopLottery = function(){
+  
+    var stopLottery = function(winners, flag){
       settings.$el.removeClass('running-lottery')
       console.log('Lottery: stoping...');
       clearTimeout(lotteryTimeout);
@@ -361,13 +361,18 @@
       $("#dh-lottery-winner .dh-modal-content").html("");
       settings.winners = [];
       // 更新本轮中奖者信息
-      for (var i = 0; i < currentTarget.length; i++) {
-        var winnerProfile = JSON.parse(decodeURIComponent($($('.profile')[currentTarget[i]]).data('profile')));
-        var userId = winnerProfile['id'];
-        settings.winners[userId] = winnerProfile;
-        settings.winnerList[userId] = winnerProfile;//储存本轮中奖者到历史中奖者名单，以筛除重复中奖
-        pushWinner(winnerProfile);
+      if (flag == 'win') {
+        for (var i = 0; i < currentTarget.length; i++) {
+          var winnerProfile = JSON.parse(decodeURIComponent($($('.profile')[currentTarget[i]]).data('profile')));
+          var userId = winnerProfile['id'];
+          settings.winners[userId] = winnerProfile;
+          settings.winnerList[userId] = winnerProfile;//储存本轮中奖者到历史中奖者名单，以筛除重复中奖
+          pushWinner(winnerProfile);
+        }
+      } else {
+        pushLoser();
       }
+
       // 根据中奖者人数调整双栏布局和文字大小
       $("#dh-lottery-winner .dh-modal-content").removeClass('dh-morewinner').removeClass('dh-solowinner');
 
@@ -380,15 +385,18 @@
       }
       clearInterval(lotteryInterval);
       console.log("Lottery: Ignore user #",settings.winnerList);
-      if(settings.confetti){
-        window.startConfetti();
-        setTimeout(function() {
-          return window.stopConfetti();
-        }, 1500);
+      if (flag == 'win') {
+        if(settings.confetti){
+          window.startConfetti();
+          setTimeout(function() {
+            return window.stopConfetti();
+          }, 1500);
+        }
       }
       setTimeout(function() {
         return $('#dh-lottery-winner').addClass('is-active');
       }, 700);
+
       lotteryInterval = null;
       $('#dh-lottery-go').removeClass('success').addClass('primary').html(diceIconHtml);
       // 保存中奖信息到中奖纪录
@@ -496,12 +504,19 @@
         return controller;
       },
       // 抽奖
-      start : function (){
+      start : function (count){
+        settings.winnerList = [];
+        settings.number = count;
         return startLottery();
       },
       // 停，返回中奖用户
-      stop : function (){
-        return stopLottery();
+      stop : function (winners){
+        if (winners.indexOf(settings.user) > -1) {
+          flag = 'win';
+        } else {
+          flag = 'lose';
+        }
+        return stopLottery(winners, flag);
       },
       // 获取用户列表
       getUsers : function(){
