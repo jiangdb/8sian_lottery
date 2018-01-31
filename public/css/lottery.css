@@ -33,7 +33,7 @@
 	}
 
 	.is-mac .dh-icon-dice {
-		line-height: 105px;
+		line-height: 50px;
 	}
 
 	.dh-icon-dice > svg {
@@ -50,7 +50,7 @@
 		width: 120px;
 	}
 	.is-mac .button .dh-icon {
-		font-size: 58px;
+		font-size: 34px;
 	}
 
 	.is-mac .dh-icon {
