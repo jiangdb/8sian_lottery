@@ -14,12 +14,20 @@ class LotteryController extends Controller
     {
         $settings = LotterySettings::find(1);
         $result['status'] = 0;
-        if (!empty($settings) && $settings->lottery_status) {
-            $result['status'] = 1;
-            $result['count'] = $settings->winners_count;
+        if (!empty($settings)) {
+            if ($settings->lottery_status) {
+                $result['status'] = 1;
+                $result['count'] = $settings->winners_count;
+            } else {
+                $winners = Winners::with('lottery_users')->where('grade', $settings->prize_grade)->get();
+                if (!empty($winners)) {
+                    $result['winners'] = $winners->pluck('uid');
+                } else {
+                    $result['winners'] = '';
+                }
+            }
         } else {
-            $winners = Winners::with('lottery_users')->where('grade', $settings->prize_grade)->get()->pluck('uid');
-            $result['winners'] = $winners;
+            $result['winners'] = '';
         }
         return response()->json($result);
     }
