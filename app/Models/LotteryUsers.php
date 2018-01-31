@@ -13,11 +13,6 @@ class LotteryUsers extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'avatar'
+        'name', 'password', 'avatar'
     ];
-
-    public function winners()
-    {
-
-    }
 }
