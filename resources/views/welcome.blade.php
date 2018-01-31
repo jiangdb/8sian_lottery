@@ -16,7 +16,12 @@
 </head>
 
 <body>
+
     <div class="lotterybox"></div>
+    <div id="video-bg">
+        <video width="auto" height="auto" src="/video/414X800-2m.mp4" autoplay="" loop="">
+        </video>
+    </div>
 
     <!-- Zepto or jQuery -->
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
@@ -40,8 +45,8 @@
         title: "name",
         subtitle: "company",
         // desc: "title",
-        timeout: 5,
-        speed: 100
+        speed: 100,
+        user: "{{ Auth::user()->id }}",
       });
       $(document).ready(function(){
         checkStart();
@@ -56,19 +61,16 @@
                 success: function(data){
                     if (data.status == 0) {
                         if(started) {
-                            lottery.stop();
+                            lottery.stop(data.winners);
                             started = false;
                         }
                     } else {
                         if (!started) {
-                            lottery.start();
+                            lottery.start(data.count);
                             started = true;
                         }
                     }
                 },
-                error: function(xhr, type){
-                    alert('Lottery: Load player list error!\n'+type+'\n'+type);
-                }
                 })
             },500);
         }
