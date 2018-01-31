@@ -106,8 +106,6 @@ class LotteryController extends Controller
                 'data' => array('id' => $user->id)
             ]);
         }
-        $result['status'] = 'succ';
-        $result['users'] = $datas;
-        return response()->json($result);
+        return response()->json($datas);
     }
 }

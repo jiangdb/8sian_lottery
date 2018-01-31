@@ -40,13 +40,14 @@
     <script>
       var lottery = $.lottery({
         el: '.lotterybox',
-        api: '/sample-data.json',
+        api: "{{ route('lottery.users') }}",
         once: true,
         title: "name",
         subtitle: "company",
         // desc: "title",
         timeout: 5,
-        speed: 100
+        speed: 100,
+        user: "{{ Auth::user()->id }}",
       });
       $(document).ready(function(){
         checkStart();
@@ -75,7 +76,7 @@
                     alert('Lottery: Load player list error!\n'+type+'\n'+type);
                 }
                 })
-            },300);
+            },500);
         }
     </script>
 
