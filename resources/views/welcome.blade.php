@@ -41,7 +41,8 @@
         subtitle: "company",
         // desc: "title",
         timeout: 5,
-        speed: 100
+        speed: 100,
+        user: "{{ Auth::user()->id }}",
       });
       $(document).ready(function(){
         checkStart();
