@@ -1,6 +1,5 @@
 .dh-lottery {
 	margin: 0;
-	background: #333;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	color: #4a4a4a;
     font-size: 16px;
@@ -13,10 +12,6 @@
 	padding: 20px 10px 15px;
 	min-height: 100%;
     box-sizing: border-box;
-    background-image: url('/img/abstract-1780285_960_720.png');
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 .dh-lottery *{
@@ -591,4 +586,15 @@
 .dh-animated {
   animation-duration: 0.4s;
   animation-fill-mode: both;
+}
+
+#video-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
 }
