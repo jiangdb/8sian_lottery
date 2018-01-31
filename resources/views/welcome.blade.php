@@ -19,7 +19,7 @@
 
     <div class="lotterybox"></div>
     <div id="video-bg">
-        <video width="auto" height="100%" src="https://img2.51vj.cn/wall_activity/fs03.mp4" autoplay="" loop="">
+        <video width="auto" height="auto" src="/video/414X800-2m.mp4" autoplay="" loop="">
         </video>
     </div>
 
