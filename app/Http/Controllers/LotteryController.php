@@ -16,6 +16,7 @@ class LotteryController extends Controller
         $result['status'] = 0;
         if (!empty($settings) && $settings->lottery_status) {
             $result['status'] = 1;
+            $result['count'] = $settings->winners_count;
         }
         return response()->json($result);
     }
