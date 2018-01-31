@@ -31,4 +31,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', 'UserController@index')->name('user.index');
 Route::post('/users', 'UserController@setUserIfAllowLottery')->name('user.set_user_allow_lottery');
 
-Route::get('all_winners', 'UserController@winners')->name('winners');
+Route::get('/winners', 'UserController@winners')->name('winners');

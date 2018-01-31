@@ -53,9 +53,9 @@ class LotteryController extends Controller
         $settings = LotterySettings::find($request->id);
 
         if ($settings->allow_winners) {
-            $users = LotteryUsers::all();
+            $users = LotteryUsers::where('allow_lottery', 1)->get();
         } else {
-            $users = LotteryUsers::whereRaw('id NOT IN (SELECT uid FROM winners)')->get();
+            $users = LotteryUsers::where('allow_lottery', 1)->whereRaw('id NOT IN (SELECT uid FROM winners)')->get();
         }
         $ids = $users->pluck('id')->toArray();
         if (count($ids) < $settings->winners_count) {
@@ -115,7 +115,7 @@ class LotteryController extends Controller
 
     public function users()
     {
-        $users = LotteryUsers::all();
+        $users = LotteryUsers::where('allow_lottery', 1)->get();
         $datas = array();
         foreach ($users as $user) {
             array_push($datas, [
