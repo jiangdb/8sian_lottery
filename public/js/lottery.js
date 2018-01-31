@@ -511,11 +511,16 @@
       },
       // 停，返回中奖用户
       stop : function (winners){
-        if (winners.indexOf(settings.user) > -1) {
+        console.log(winners);
+        console.log(settings.user);
+        if (winners.findIndex(function(item){
+          return item == settings.user;
+        }) !== -1) {
           flag = 'win';
         } else {
           flag = 'lose';
         }
+        console.log(flag);
         return stopLottery(winners, flag);
       },
       // 获取用户列表
