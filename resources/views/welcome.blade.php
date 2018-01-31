@@ -35,7 +35,7 @@
     <script>
       var lottery = $.lottery({
         el: '.lotterybox',
-        api: '/sample-data.json',
+        api: "{{ route('lottery.users') }}",
         once: true,
         title: "name",
         subtitle: "company",
@@ -70,7 +70,7 @@
                     alert('Lottery: Load player list error!\n'+type+'\n'+type);
                 }
                 })
-            },300);
+            },500);
         }
     </script>
 
