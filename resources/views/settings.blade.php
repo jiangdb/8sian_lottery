@@ -6,7 +6,7 @@
     <meta name="format-detection" content="telephone=no" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        .container { margin-top:50px;}
+        .container { margin-top:20px;}
     </style>
 </head>
 
@@ -23,9 +23,9 @@
                             {{method_field('PUT')}}
                             <input type="hidden" name="id" value="1">
                             <div class="form-group">
-                                <label for="winners_count" class="col-md-3 control-label">奖项级别：</label>
+                                <label for="winners_count" class="col-md-3 control-label">奖项名称：</label>
                                 <div class="col-md-6">
-                                    <input id="prize_grade" type="number" class="form-control" name="prize_grade" value="{{ !empty($settings) ? $settings->prize_grade : 0 }}" required autofocus style="width:86%; float:left;"><span style="float: left; margin-top:10px;">等奖</span>
+                                    <input id="prize_grade" type="text" class="form-control" name="prize_grade" value="{{ !empty($settings) ? $settings->prize_grade : '' }}" required autofocus>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -51,11 +51,20 @@
                     </div>
                     @if(!empty($settings))
                     <div class="panel-body" style="border-top: 1px solid #ccc;">
+                        <div class="form-group" style="margin-top:15px;">
+                            <label class="col-md-3 control-label">奖项名称：{{ $settings->prize_grade }}</label>
+                            <div style="clear: left;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">中奖人数：{{ $settings->winners_count }}</label>
+                        </div>
+                    </div>
+                    <div class="panel-body" style="border-top: 1px solid #ccc;">
                         <form class="form-horizontal" method="POST" action="{{ route('lottery.set_start') }}">
                             {{csrf_field()}}
                             {{method_field('PUT')}}
                             <input type="hidden" name="id" value="1">
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top:15px;">
                                 <div class="col-md-8" style="text-align: center;">
                                     @if($settings && $settings->lottery_status == 1)
                                         <button type="submit" class="btn btn-primary" disabled style="width: 60%; height:50px;">
