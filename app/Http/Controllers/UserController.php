@@ -27,6 +27,9 @@ class UserController extends Controller
     public function winners()
     {
         $winners = Winners::with('lottery_users')->get();
+        if ($winners != null) {
+            $winners = $winners->groupBy('grade');
+        }
         return view('winners', compact('winners'));
     }
 }
