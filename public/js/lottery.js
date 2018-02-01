@@ -280,7 +280,7 @@
     //添加未中奖者dom
     var pushLoser = function() {
       var el = $(`
-          <div class='profile-item'>
+          <div class='profile-item loser-item'>
             <div class='avatar-image'>
               <div class='avatar'><span class='image avatar-image'><img src='/img/cryface.png' alt='avatar' /></span></div>
             </div>
@@ -352,7 +352,7 @@
       moveToTarget(selector,targetIndex);
       currentTarget.push(targetIndex);
     }
-  
+
     var stopLottery = function(winners, flag){
       settings.$el.removeClass('running-lottery')
       console.log('Lottery: stoping...');
