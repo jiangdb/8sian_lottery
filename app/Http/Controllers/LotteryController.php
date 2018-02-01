@@ -24,7 +24,11 @@ class LotteryController extends Controller
                     ->where('grade_times', $settings->prize_grade_times)
                     ->get();
                 if (!empty($winners)) {
-                    $result['winners'] = $winners->pluck('uid');
+                    $card_nos = array();
+                    foreach ($winners as $winner) {
+                        array_push($card_nos, $winner->lottery_users->card_no);
+                    }
+                    $result['winners'] = $card_nos;
                 } else {
                     $result['winners'] = '';
                 }
@@ -32,6 +36,9 @@ class LotteryController extends Controller
         } else {
             $result['winners'] = '';
         }
+
+        $result['users_count'] = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->count();
+
         return response()->json($result);
     }
 
@@ -53,9 +60,9 @@ class LotteryController extends Controller
         $settings = LotterySettings::find($request->id);
 
         if ($settings->allow_winners) {
-            $users = LotteryUsers::where('allow_lottery', 1)->get();
+            $users = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->get();
         } else {
-            $users = LotteryUsers::where('allow_lottery', 1)->whereRaw('id NOT IN (SELECT uid FROM winners)')->get();
+            $users = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->whereRaw('id NOT IN (SELECT uid FROM winners)')->get();
         }
         $ids = $users->pluck('id')->toArray();
         if (count($ids) < $settings->winners_count) {
@@ -84,9 +91,9 @@ class LotteryController extends Controller
         $settings = LotterySettings::find(1);
         if ($settings != null) {
             if ($settings->allow_winners) {
-                $count = LotteryUsers::where('allow_lottery', 1)->count();
+                $count = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->count();
             } else {
-                $count = LotteryUsers::where('allow_lottery', 1)->whereRaw('id NOT IN (SELECT uid FROM winners)')->count();
+                $count = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->whereRaw('id NOT IN (SELECT uid FROM winners)')->count();
             }
             $settings->can_take_persons = $count;
         }
@@ -115,12 +122,12 @@ class LotteryController extends Controller
 
     public function users()
     {
-        $users = LotteryUsers::where('allow_lottery', 1)->get();
+        $users = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->get();
         $datas = array();
         foreach ($users as $user) {
             array_push($datas, [
                 'name' => $user->name,
-                'avatar' => $user->avatar,
+                'avatar' => url('img/'.$user->card_no.'.png'),
                 'data' => array('id' => $user->id)
             ]);
         }
