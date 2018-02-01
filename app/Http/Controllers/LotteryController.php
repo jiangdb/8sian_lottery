@@ -54,7 +54,7 @@ class LotteryController extends Controller
         $settings->save();
 
         $options = array(
-            'lottery_status' => 1,
+            'cluster' => 'ap1',
             'encrypted' => true
         );
         $pusher = new \Pusher\Pusher(
@@ -65,7 +65,7 @@ class LotteryController extends Controller
         );
 
         $data['message'] = 1;
-        $pusher->trigger('my-channel', 'my-event', $data);
+        $res = $pusher->trigger('my-channel', 'my-event', $data);
 
         return redirect(route('lottery.setting'));
     }
@@ -100,7 +100,7 @@ class LotteryController extends Controller
         $settings->save();
 
         $options = array(
-            'lottery_status' => 1,
+            'cluster' => 'ap1',
             'encrypted' => true
         );
         $pusher = new \Pusher\Pusher(
