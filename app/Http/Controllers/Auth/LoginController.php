@@ -43,6 +43,11 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+        $user = $this->guard()->getProvider()->retrieveByCredentials($this->credentials($request));
+        if (!$user) {
+            session()->flash('error', '请输入正确的名字！');
+            return back();
+        }
         if ($request->poker_size == 53) {
             $card_no = 53;
         } elseif($request->poker_size == 54) {
@@ -53,11 +58,13 @@ class LoginController extends Controller
         
         $user = LotteryUsers::where('card_no', $card_no)->first();
         if ($user && $user->name !== $request->name) {
-            return back()->withErrors('此牌号已被他人拥有！');
+            session()->flash('error', '此牌号已被他人拥有！');
+            return back();
         }
         $user = LotteryUsers::where('name', $request->name)->first();
         if ($user && $user->card_no && $user->card_no !== $card_no) {
-            return back()->withErrors('请输入您正确的牌号！');
+            session()->flash('error', '请输入您正确的牌号！');
+            return back();
         }
         $user->card_no = $card_no;
         $user->save();
