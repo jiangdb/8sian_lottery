@@ -12,47 +12,48 @@ class LotteryUserSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('truncate lottery_users');
         $users = array();
         array_push($users, [
             'name' => 'user1',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/zeldman/128.jpg',
+            'card_no' => 1,
         ], [
             'name' => 'user2',
             'password' => Hash::make('123456'),
-            'avatar' => 'http://www.piedpiper.com/app/themes/pied-piper/dist/images/richard.png',
+            'card_no' => 2,
         ], [
             'name' => 'user3',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/faulknermusic/128.jpg',
+            'card_no' => 3,
         ], [
             'name' => 'user4',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/iannnnn/128.jpg',
+            'card_no' => 4,
         ], [
             'name' => 'user5',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/sauro/128.jpg',
+            'card_no' => 5,
         ], [
             'name' => 'user6',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/k/128.jpg',
+            'card_no' => 6,
         ], [
             'name' => 'user7',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg',
+            'card_no' => 7,
         ], [
             'name' => 'user8',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg',
+            'card_no' => 8,
         ], [
             'name' => 'user9',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/iflendra/128.jpg',
+            'card_no' => 9,
         ], [
             'name' => 'user10',
             'password' => Hash::make('123456'),
-            'avatar' => 'https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg',
+            'card_no' => 10,
         ]);
 
         foreach ($users as $user) {
