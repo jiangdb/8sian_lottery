@@ -31,6 +31,22 @@
     <script src="/js/move.min.js"></script>
     <script src="/js/material-avatar.js"></script>
     <script src="/js/lottery.js"></script>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"</script>
+    <script>
+    
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+    
+        var pusher = new Pusher('8fe8f50d614f0c8eccc6', {
+        cluster: 'ap1',
+        encrypted: true
+        });
+    
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+        alert(data.message);
+        });
+    </script>
     <link rel="stylesheet" href="/css/lottery.css" />
 
     <!-- ROCK ON -->
@@ -46,7 +62,7 @@
         user: "{{ Auth::user()->id }}",
       });
       $(document).ready(function(){
-        checkStart();
+        //checkStart();
       });
       var checkStart = function(){
         var started = false;
@@ -72,7 +88,7 @@
                     }
                 }
                 })
-            },1000);
+            },30000);
         }
     </script>
 
