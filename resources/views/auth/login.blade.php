@@ -2,10 +2,22 @@
 
 @section('content')
 <div class="container">
+    <div class="message_box">
+        @if (Session::has('message'))
+                <!-- will be used to show any messages -->
+        <div class="alert alert-info">{{ Session::get('message') }}</div>
+        @endif
+    </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
+                <div class="message_box">
+                        @if (Session::has('error'))
+                            <!-- will be used to show any messages -->
+                            <div class="alert alert-danger">{{ Session::get('error') }}</div>
+                        @endif
+                </div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -53,8 +65,8 @@
                                         <option value="54">小王</option>
                                 </select>
 
-                                <select name="poker_number" class="form-control">
-                                        <option value="">请选择牌号</option>
+                                <select name="poker_number" class="form-control" required>
+                                        <option value="0">请选择牌号</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -69,12 +81,6 @@
                                         <option value="13">K</option>
                                         <option value="1">A</option>
                                 </select>
-
-                                @if ($errors->has('poker'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('poker') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 
