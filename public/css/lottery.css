@@ -599,3 +599,7 @@
     right: 0;
     z-index: -1;
 }
+
+.form-control.poker-size {
+	margin: 0 0 20px 0;
+}
