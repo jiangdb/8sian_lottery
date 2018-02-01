@@ -43,7 +43,13 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $card_no = ($request->poker_size) * 13 +  ($request->poker_number);
+        if ($request->poker_size == 53) {
+            $card_no = 53;
+        } elseif($request->poker_size == 54) {
+            $card_no = 54;
+        } else {
+            $card_no = ($request->poker_size) * 13 +  ($request->poker_number);            
+        }
         
         $user = LotteryUsers::where('card_no', $card_no)->first();
         if ($user && $user->name !== $request->name) {
