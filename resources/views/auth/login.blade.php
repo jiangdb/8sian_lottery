@@ -53,7 +53,7 @@
                                         <option value="54">小王</option>
                                 </select>
 
-                                <select name="poker_number" class="form-control" required>
+                                <select name="poker_number" class="form-control">
                                         <option value="">请选择牌号</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
