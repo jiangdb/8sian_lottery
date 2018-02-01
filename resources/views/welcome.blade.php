@@ -18,9 +18,6 @@
 <body>
 
     <div class="lotterybox"></div>
-    <div id="video-bg">
-        {{--<video width="auto" height="auto" src="https://img2.51vj.cn/wall_activity/fs03.mp4" autoplay="" loop=""></video>--}}
-        <video width="auto" height="auto" src="/video/bg.mp4" autoplay="" loop=""></video>
     </div>
 
     <!-- Zepto or jQuery -->
