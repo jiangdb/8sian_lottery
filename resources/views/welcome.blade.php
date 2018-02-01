@@ -18,7 +18,7 @@
 <body>
 
     <div class="lotterybox"></div>
-    <div id="video-bg">
+    <div id="video-bg" style="display: none;">
         <video width="auto" height="auto" src="https://img2.51vj.cn/wall_activity/fs03.mp4" autoplay="" loop="">
         </video>
     </div>

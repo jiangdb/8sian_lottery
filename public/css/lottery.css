@@ -12,6 +12,8 @@
 	padding: 20px 10px 15px;
 	min-height: 100%;
     box-sizing: border-box;
+    background-image: url("/img/Christian-New-Year-Background-05.jpg");
+    background-position: center;
 }
 
 .dh-lottery *{
