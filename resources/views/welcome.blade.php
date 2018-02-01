@@ -31,7 +31,7 @@
     <script src="/js/move.min.js"></script>
     <script src="/js/material-avatar.js"></script>
     <script src="/js/lottery.js"></script>
-    <script src="https://js.pusher.com/4.1/pusher.min.js"</script>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
     
         // Enable pusher logging - don't include this in production
