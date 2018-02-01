@@ -52,6 +52,21 @@ class LotteryController extends Controller
         }
         $settings->lottery_status = 1;
         $settings->save();
+
+        $options = array(
+            'lottery_status' => 1,
+            'encrypted' => true
+        );
+        $pusher = new \Pusher\Pusher(
+            '8fe8f50d614f0c8eccc6',
+            'b4439addf5947aa632bc',
+            '467342',
+            $options
+        );
+
+        $data['message'] = 1;
+        $pusher->trigger('my-channel', 'my-event', $data);
+
         return redirect(route('lottery.setting'));
     }
 
@@ -83,6 +98,21 @@ class LotteryController extends Controller
 
         $settings->lottery_status = 0;
         $settings->save();
+
+        $options = array(
+            'lottery_status' => 1,
+            'encrypted' => true
+        );
+        $pusher = new \Pusher\Pusher(
+            '8fe8f50d614f0c8eccc6',
+            'b4439addf5947aa632bc',
+            '467342',
+            $options
+        );
+
+        $data['message'] = 0;
+        $pusher->trigger('my-channel', 'my-event', $data);
+
         return redirect(route('lottery.setting'));
     }
 
