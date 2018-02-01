@@ -8,6 +8,7 @@
         body {
             padding: 0;
             margin: 0;
+            background: #000;
         }
         .lotterybox{
             height: 100%;
@@ -18,7 +19,6 @@
 <body>
 
     <div class="lotterybox"></div>
-    </div>
 
     <!-- Zepto or jQuery -->
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>

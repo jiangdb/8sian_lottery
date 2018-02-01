@@ -9,11 +9,37 @@
     -webkit-font-smoothing: antialiased;
     min-width: 300px;
 	text-rendering: optimizeLegibility;
-	padding: 20px 10px 15px;
+	padding: 170px 10px 15px;
 	min-height: 100%;
     box-sizing: border-box;
-    background-image: url("/img/Christian-New-Year-Background-05.jpg");
-    background-position: center;
+    background-image: url("/img/bg.png");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+	.dh-lottery {
+		padding-top: 330px;
+	}
+}
+
+@media (max-width: 414px) {
+	.dh-lottery {
+		padding-top: 170px;
+	}
+}
+
+@media (max-width: 375px) {
+	.dh-lottery {
+		padding-top: 150px;
+	}
+}
+
+@media (max-width: 320px) {
+	.dh-lottery {
+		padding-top: 130px;
+	}
 }
 
 .dh-lottery *{
@@ -115,8 +141,8 @@
 .dh-lottery .avatar .image {
 	margin: 0 auto;
 	display: inline-block;
-	height: 48px;
-  width: 36px;
+	height: 60px;
+  width: 42px;
   position: relative;
 }
 
@@ -132,8 +158,8 @@
 	top: 1px;
 	border: 3px solid #00d1b2;
 	box-sizing: content-box;
-	height: 48px;
-	width: 36px;
+	height: 60px;
+	width: 42px;
 	/*box-shadow: 0 0 100px 3000px rgba(10, 10, 10, 0.3);*/
 }
 
@@ -483,7 +509,7 @@
 .dh-history-user .avatar .avatar-image{
   float: none;
 	height: 60px;
-    width: 45px;
+    width: 42px;
 }
 
 .dh-modal-btn{
@@ -600,4 +626,6 @@
     left: 0;
     right: 0;
     z-index: -1;
+    display: flex;
+    justify-content: center;
 }
