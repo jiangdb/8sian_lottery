@@ -84,9 +84,9 @@ class LotteryController extends Controller
         $settings = LotterySettings::find(1);
         if ($settings != null) {
             if ($settings->allow_winners) {
-                $count = LotteryUsers::all()->count();
+                $count = LotteryUsers::where('allow_lottery', 1)->count();
             } else {
-                $count = LotteryUsers::whereRaw('id NOT IN (SELECT uid FROM winners)')->count();
+                $count = LotteryUsers::where('allow_lottery', 1)->whereRaw('id NOT IN (SELECT uid FROM winners)')->count();
             }
             $settings->can_take_persons = $count;
         }

@@ -57,6 +57,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">中奖人数：{{ $settings->winners_count }}</label>
+                            <div style="clear: left;"></div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">参加人数：{{ $settings->can_take_persons }}</label>
