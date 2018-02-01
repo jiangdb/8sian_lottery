@@ -45,13 +45,15 @@
                             <div class="col-md-6">
                                 <select name="poker_size" class="form-control" required>
                                         <option value ="">请选择花色</option>
-                                        <option value ="0">黑桃♠️</option>
-                                        <option value ="1">草花♣️</option>
-                                        <option value="2">红心♥️</option>
+                                        <option value ="0">草花♣️</option>
+                                        <option value ="1">红心♥️</option>
+                                        <option value="2">黑桃♠️</option>
                                         <option value="3">方块♦️</option>
+                                        <option value="53">大王</option>
+                                        <option value="54">小王</option>
                                 </select>
 
-                                <select name="poker_number" class="form-control" required>
+                                <select name="poker_number" class="form-control">
                                         <option value="">请选择牌号</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
