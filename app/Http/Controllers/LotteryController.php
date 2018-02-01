@@ -133,4 +133,15 @@ class LotteryController extends Controller
         }
         return response()->json($datas);
     }
+
+    public function winners()
+    {
+        $winners = Winners::with('lottery_users')->get();
+        if ($winners != null) {
+            $winners = $winners->groupBy('grade');
+        }
+        $datas['status'] = 'succ';
+        $datas['winners'] = $winners;
+        return response()->json($datas);
+    }
 }

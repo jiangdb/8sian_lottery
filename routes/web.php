@@ -21,7 +21,7 @@ Route::group(['prefix' => '/lottery', 'as' => 'lottery.', 'middleware' => 'auth'
     Route::put('stop', 'LotteryController@setStop')->name('set_stop');
     Route::get('setting', 'LotteryController@setting')->name('setting');
     Route::put('setting', 'LotteryController@storeSetting')->name('store_setting');
-    Route::get('winners', 'LotteryController@currentWinners')->name('current_winners');
+    Route::get('winners', 'LotteryController@winners')->name('winners');
     Route::get('users', 'LotteryController@users')->name('users');
 });
 Auth::routes();
