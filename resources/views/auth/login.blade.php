@@ -24,7 +24,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                            <label for="name" class="col-md-4 control-label">姓名</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
@@ -52,10 +52,10 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('poker') ? ' has-error' : '' }}">
-                            <label for="poker" class="col-md-4 control-label">Poker</label>
+                            <label for="poker" class="col-md-4 control-label">扑克</label>
 
                             <div class="col-md-6">
-                                <select name="poker_size" class="form-control" required>
+                                <select name="poker_size" class="form-control poker-size" required>
                                         <option value ="">请选择花色</option>
                                         <option value ="0">草花♣️</option>
                                         <option value ="1">红心♥️</option>
@@ -64,7 +64,8 @@
                                         <option value="53">大王</option>
                                         <option value="54">小王</option>
                                 </select>
-
+                            </div>
+                            <div class="col-md-6">
                                 <select name="poker_number" class="form-control" required>
                                         <option value="0">请选择牌号</option>
                                         <option value="2">2</option>
