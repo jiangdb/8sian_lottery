@@ -50,7 +50,7 @@ class LoginController extends Controller
             return back()->withErrors('此牌号已被他人拥有！');
         }
         $user = LotteryUsers::where('name', $request->name)->first();
-        if ($user && $user->card_no !== $card_no) {
+        if ($user && $user->card_no && $user->card_no !== $card_no) {
             return back()->withErrors('请输入您正确的牌号！');
         }
         $user->card_no = $card_no;
