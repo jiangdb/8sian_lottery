@@ -172,12 +172,22 @@ class LotteryController extends Controller
 
     public function winners()
     {
-        $winners = Winners::with('lottery_users')->get();
-        if ($winners != null) {
-            $winners = $winners->groupBy('grade');
+        $histories = Winners::with('lottery_users')->get();
+        if ($histories != null) {
+            $histories = $histories->groupBy('grade_times');
+        }
+        $winner_histories= [];
+        foreach($histories as $grade_time => $winners) {
+            $winner_histories[$grade_time] = [
+                'name' => $winners->get(0)->grade,
+                'winners' =>[]
+            ];
+            foreach ($winners as $winner) {
+                $winner_histories[$grade_time]['winners'][] = $winner->lottery_users->name;
+            }
         }
         $datas['status'] = 'succ';
-        $datas['winners'] = $winners;
+        $datas['histories'] = $winner_histories;
         return response()->json($datas);
     }
 }

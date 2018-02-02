@@ -278,12 +278,10 @@
     }
 
     //添加未中奖者dom
-    var pushLoser = function() {
+    var pushLoser = function(index) {
       var el = $(`
           <div class='profile-item loser-item'>
-            <div class='avatar-image'>
-              <div class='avatar'><span class='image avatar-image'><img src='/img/cryface.png' alt='avatar' /></span></div>
-            </div>
+            <div class='loser-cotent'>Hey!<br>Loser!</div>
           </div>
         `)
       $("#dh-lottery-winner .dh-modal-content").append(el);
@@ -300,6 +298,7 @@
           <h2 class='profile-name'></h2>
           <h3 class='profile-subtitle'></h3>
           <h4 class='profile-desc'></h4>
+          <div class='winner-cotent'>You Win!</div>
         </div>
       `)
       var cardSubTitle, cardTitle, cardDesc;
@@ -386,7 +385,13 @@
         console.log(winnerProfile[0]);
         pushWinner(winnerProfile[0]);
       } else {
-        pushLoser();
+        pushLoser(getRandomInt(1, 5));
+      }
+
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
       }
 
       // 根据中奖者人数调整双栏布局和文字大小
@@ -461,48 +466,44 @@
     }
 
     var showHistory = function(){
-      var tplItem = function(data) { return `
-        <div class='dh-history-item'>
-          <div class='dh-history-info'>
-            <h1>${data.i}</h1>
-            <p>${data.time}</p>
+      $.ajax({
+        type: "GET",
+        url: historyApi,
+        dataType: 'json',
+        success: function(data){
+          console.log(data);
+          var tplItem = function(item) { return `
+          <div class='dh-history-item'>
+            <div class='dh-history-info'>
+              <p>${item.name}</p>
+            </div>
+            <div class='dh-history-user'>
+            </div>
           </div>
-          <div class='dh-history-user'>
+        `};
+        var tplUser = function (item) { return `
+          <div>
+            <h3 class='name'>${item.winnerName}</h3>
           </div>
-        </div>
-      `};
-      var tplUser = function (data) { return `
-        <div>
-          ` + (function () {
-            if (data.avatar) {
-              return `<div class="avatar"><span class="image avatar-image is-128x128"><img src="${data.avatar}" alt="avatar" /></span></div`
-            } else {
-              return `<div class="avatar"><span class="image dh-name-avatar avatar-image is-128x128">${data.data[settings.title] || data.name}</span></div>`
-            }
-          })() + `
-          <h3 class='name'>${data.data[settings.title] || data.name}</h3>
-        </div>
-      `};
-      var box = $("#dh-lottery-history .dh-modal-content");
-      box.html("");
-      var history = settings.winnerHistory.reverse();
-      //输出中奖纪录dom
-      for(var item in history){
-        var _this = history[item]
-        _this.number = arrayCount(_this.winner);
-        _this.i = Number(item) + 1;
-        var lottery_item = $(tplItem(_this));
-        //输出中奖用户dom
-        for(var user in _this.winner){
-          var _this = history[item]['winner'][user];
-          var lottery_user = $(tplUser(_this));
-          lottery_item.find(".dh-history-user").append(lottery_user);
+        `};
+        var box = $("#dh-lottery-history .dh-modal-content");
+        box.html("");
+        //输出中奖纪录dom
+        for(var item in data.histories){
+          console.log(item);
+          var lottery_item = $(tplItem({name:data.histories[item].name}));
+          //输出中奖用户dom
+          for(var user in data.histories[item].winners){
+            // _this.winnerName = data.winners[item][user];
+            var lottery_user = $(tplUser({winnerName:data.histories[item].winners[user]}));
+            lottery_item.find(".dh-history-user").append(lottery_user);
+          }
+          box.append(lottery_item);
         }
-        box.append(lottery_item);
-      }
-      $("#dh-lottery-history").addClass("is-active");
-      new MaterialAvatar(document.getElementsByClassName('dh-name-avatar'), avatarOptions);
-      return settings.winnerHistory;
+        $("#dh-lottery-history").addClass("is-active");
+        new MaterialAvatar(document.getElementsByClassName('dh-name-avatar'), avatarOptions);
+        }
+        })
     }
 
     //Controller
