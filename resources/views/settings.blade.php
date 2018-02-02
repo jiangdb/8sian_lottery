@@ -13,6 +13,12 @@
 <body>
 <div id="app">
     <div class="container">
+        <div class="message_box">
+            @if (Session::has('error'))
+            <!-- will be used to show any messages -->
+                <div class="alert alert-danger">{{ Session::get('error') }}</div>
+            @endif
+        </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
@@ -22,6 +28,7 @@
                             {{csrf_field()}}
                             {{method_field('PUT')}}
                             <input type="hidden" name="id" value="1">
+                            <input type="hidden" name="can_take_person" value="{{ $settings->can_take_persons }}">
                             <div class="form-group">
                                 <label for="winners_count" class="col-md-3 control-label">奖项名称：</label>
                                 <div class="col-md-6">
@@ -38,6 +45,10 @@
                                 <label for="winners_count" class="col-md-3 control-label"></label>
                                 <div class="col-md-6">
                                     <input type="checkbox" name="allow_winners" {{ (!empty($settings) && $settings->allow_winners == 1) ? 'checked' : '' }} value="1" style="width: 30px; height: 30px; float: left;"><label for="allow_winners" style="position:relative; top:7px;">允许中奖人参与</label>
+                                </div>
+                                <div style="clear: both;"></div>
+                                <div class="col-md-6">
+                                    <input type="checkbox" name="allow_win" {{ (!empty($settings) && $settings->allow_win == 1) ? '' : 'checked' }} value="0" style="width: 30px; height: 30px; float: left;"><label for="allow_winners" style="position:relative; top:7px;">排除部分人员</label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -61,6 +72,9 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">参加人数：{{ $settings->can_take_persons }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">排除人员：<font color="red">{{ $settings->allow_win ? '未排除' : '已排除' }}</font></label>
                         </div>
                     </div>
                     <div class="panel-body" style="border-top: 1px solid #ccc;">
