@@ -162,10 +162,6 @@ class LotteryUserSeeder extends Seeder
             'name' => '孙鼎',
             'password' => Hash::make('123456'),
         ], [
-            'name' => 'BOLEI',
-            'password' => Hash::make('123456'),
-            'allow_lottery' => 0,
-        ], [
             'name' => 'ANDREW',
             'password' => Hash::make('123456'),
             'allow_lottery' => 0,
@@ -187,6 +183,10 @@ class LotteryUserSeeder extends Seeder
             'allow_lottery' => 0,
         ], [
             'name' => '徐珺如',
+            'password' => Hash::make('123456'),
+            'allow_lottery' => 0,
+        ], [
+            'name' => '潘照青',
             'password' => Hash::make('123456'),
             'allow_lottery' => 0,
         ]);
