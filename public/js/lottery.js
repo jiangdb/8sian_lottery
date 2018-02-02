@@ -281,9 +281,7 @@
     var pushLoser = function() {
       var el = $(`
           <div class='profile-item loser-item'>
-            <div class='avatar-image'>
-              <div class='avatar'><span class='image avatar-image'><img src='/img/cryface.png' alt='avatar' /></span></div>
-            </div>
+            <div class='loser-cotent'>Hey!<br>Loser!</div>
           </div>
         `)
       $("#dh-lottery-winner .dh-modal-content").append(el);
@@ -300,6 +298,7 @@
           <h2 class='profile-name'></h2>
           <h3 class='profile-subtitle'></h3>
           <h4 class='profile-desc'></h4>
+          <div class='winner-cotent'>You Win!</div>
         </div>
       `)
       var cardSubTitle, cardTitle, cardDesc;
