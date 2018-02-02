@@ -28,7 +28,7 @@
                             {{csrf_field()}}
                             {{method_field('PUT')}}
                             <input type="hidden" name="id" value="1">
-                            <input type="hidden" name="can_take_person" value="{{ $settings->can_take_persons }}">
+                            <input type="hidden" name="can_take_person" value="{{ !empty($settings) ? $settings->can_take_persons : '54' }}">
                             <div class="form-group">
                                 <label for="winners_count" class="col-md-3 control-label">奖项名称：</label>
                                 <div class="col-md-6">
