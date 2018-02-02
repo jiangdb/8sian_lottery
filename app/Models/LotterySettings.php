@@ -13,6 +13,6 @@ class LotterySettings extends Model
      * @var array
      */
     protected $fillable = [
-        'winners_count', 'prize_grade', 'prize_grade_times', 'allow_winners'
+        'winners_count', 'prize_grade', 'prize_grade_times', 'allow_winners', 'allow_win'
     ];
 }

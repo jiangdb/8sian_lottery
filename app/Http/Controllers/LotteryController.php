@@ -13,13 +13,25 @@ class LotteryController extends Controller
 {
     public function checkIfStart()
     {
-        $result['users_count'] = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->count();
+        $result['users_count'] = LotteryUsers::whereNotNull('card_no')->count();
         return response()->json($result);
     }
 
     public function setStart(Request $request)
     {
         $settings = LotterySettings::find($request->id);
+
+        if ($settings->allow_winners) {
+            $count = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->count();
+        } else {
+            $count = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->whereRaw('id NOT IN (SELECT uid FROM winners)')->count();
+        }
+
+        if ($settings->winners_count > $count) {
+            session()->flash('error', '中奖人数不能大于参加人数！');
+            return back()->withInput();
+        }
+
         if ($settings->prize_grade == $request->prize_grade) {
             $settings->prize_grade_times += 1;
         } else {
@@ -113,18 +125,32 @@ class LotteryController extends Controller
 
     public function storeSetting(Request $request)
     {
+        if (intval($request->winners_count) > intval($request->can_take_person)) {
+            session()->flash('error', '中奖人数不能大于参加人数！');
+            return back()->withInput();
+        }
         $settings = LotterySettings::find($request->id);
         $allow_winners = $request->allow_winners ?? 0;
+        $allow_win = $request->allow_win ?? 1;
+
+        if ($allow_win) {
+            LotteryUsers::where('id', '<', 7)->update(['allow_lottery' => 1]);
+        } else {
+            LotteryUsers::where('id', '<', 7)->update(['allow_lottery' => 0]);
+        }
+
         if ($settings == null) {
             LotterySettings::create([
                 'winners_count' => $request->winners_count,
                 'prize_grade' => $request->prize_grade,
                 'allow_winners' => $allow_winners,
+                'allow_win' => $allow_win,
             ]);
         } else {
             $settings->winners_count = $request->winners_count;
             $settings->prize_grade = $request->prize_grade;
             $settings->allow_winners = $allow_winners;
+            $settings->allow_win = $allow_win;
             $settings->save();
         }
         return redirect(route('lottery.setting'));
@@ -132,7 +158,7 @@ class LotteryController extends Controller
 
     public function users()
     {
-        $users = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->get();
+        $users = LotteryUsers::whereNotNull('card_no')->get();
         $datas = array();
         foreach ($users as $user) {
             array_push($datas, [
