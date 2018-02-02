@@ -507,6 +507,7 @@
         }
         $("#dh-lottery-history").addClass("is-active");
         new MaterialAvatar(document.getElementsByClassName('dh-name-avatar'), avatarOptions);
+        $('body').scrollTop(0);
         }
         })
     }
