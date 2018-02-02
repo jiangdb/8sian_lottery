@@ -281,6 +281,9 @@
     var pushLoser = function(index) {
       var el = $(`
           <div class='profile-item loser-item'>
+            <div class="avatar-image">
+            <div class="avatar"><span class="image avatar-image"><img src="/img/pic-`+index+`.png" alt="avatar"></span></div>
+            </div>
             <div class='loser-cotent'>Hey!<br>Loser!</div>
           </div>
         `)
