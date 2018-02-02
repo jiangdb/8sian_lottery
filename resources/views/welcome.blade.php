@@ -70,38 +70,7 @@
                 }
             }
         });
-<<<<<<< HEAD
         var checkStart = function(){
-=======
-
-        channel.bind('start-event', function(data) {
-            alert(data.message);
-        });
-
-        channel.bind('stop-event', function(data) {
-            alert(data.message);
-        });
-    </script>
-    <link rel="stylesheet" href="/css/lottery.css" />
-
-    <!-- ROCK ON -->
-    <script>
-      var lottery = $.lottery({
-        el: '.lotterybox',
-        api: "{{ route('lottery.users') }}",
-        once: true,
-        title: "name",
-        subtitle: "company",
-        // desc: "title",
-        speed: 100,
-        user: "{{ Auth::user()->id }}",
-      });
-      $(document).ready(function(){
-        //checkStart();
-      });
-      var checkStart = function(){
-        var started = false;
->>>>>>> 5afcd873e1070b6f988a916d1a44af1befa4d922
         setInterval(function(){
             $.ajax({
                 type: "GET",
