@@ -12,33 +12,7 @@ class LotteryController extends Controller
 {
     public function checkIfStart()
     {
-        /*$settings = LotterySettings::find(1);
-        $result['status'] = 0;
-        if (!empty($settings)) {
-            if ($settings->lottery_status) {
-                $result['status'] = 1;
-                $result['count'] = $settings->winners_count;
-            } else {
-                $winners = Winners::with('lottery_users')
-                    ->where('grade', $settings->prize_grade)
-                    ->where('grade_times', $settings->prize_grade_times)
-                    ->get();
-                if (!empty($winners)) {
-                    $card_nos = array();
-                    foreach ($winners as $winner) {
-                        array_push($card_nos, $winner->lottery_users->card_no);
-                    }
-                    $result['winners'] = $card_nos;
-                } else {
-                    $result['winners'] = '';
-                }
-            }
-        } else {
-            $result['winners'] = '';
-        }*/
-
         $result['users_count'] = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->count();
-
         return response()->json($result);
     }
 
@@ -163,7 +137,7 @@ class LotteryController extends Controller
             array_push($datas, [
                 'name' => $user->name,
                 'avatar' => url('img/'.$user->card_no.'.png'),
-                'data' => array('id' => $user->id)
+                'data' => array('id' => $user->id, 'card_no' => $user->card_no)
             ]);
         }
         return response()->json($datas);
