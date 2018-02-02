@@ -368,16 +368,16 @@
       $("#dh-lottery-winner .dh-modal-content").html("");
       settings.winners = [];
       winners.forEach(function(winner){
-        console.log(settings.data);
+        //console.log(settings.data);
         var index = settings.data.findIndex(function(item){
-          console.log(item);
+          //console.log(item);
           return item.data.card_no == winner;
         });
-        console.log(index);
+        //console.log(index);
         if (index !== -1) {
           currentTarget.push(settings.data[index].id);
         }
-        console.log(currentTarget);
+        //console.log(currentTarget);
       });
       for (var i = 0; i < currentTarget.length; i++) {
         moveToTarget(i, currentTarget[i]);
@@ -387,7 +387,7 @@
         var winnerProfile = settings.data.filter(function( obj ) {
           return obj.data.card_no == settings.user;
         });
-        console.log(winnerProfile[0]);
+        //console.log(winnerProfile[0]);
         pushWinner(winnerProfile[0]);
       } else {
         pushLoser(getRandomInt(1, 10));
@@ -476,7 +476,7 @@
         url: historyApi,
         dataType: 'json',
         success: function(data){
-          console.log(data);
+          //console.log(data);
           var tplItem = function(item) { return `
           <div class='dh-history-item'>
             <div class='dh-history-info'>
@@ -495,7 +495,7 @@
         box.html("");
         //输出中奖纪录dom
         for(var item in data.histories){
-          console.log(item);
+          //console.log(item);
           var lottery_item = $(tplItem({name:data.histories[item].name}));
           //输出中奖用户dom
           for(var user in data.histories[item].winners){
@@ -531,8 +531,8 @@
       },
       // 停，返回中奖用户
       stop : function (winners){
-        console.log(winners);
-        console.log(settings.user);
+        //console.log(winners);
+        //console.log(settings.user);
         if (winners.findIndex(function(item){
           return item == settings.user;
         }) !== -1) {
@@ -540,7 +540,7 @@
         } else {
           flag = 'lose';
         }
-        console.log(flag);
+        //console.log(flag);
         return stopLottery(winners, flag);
       },
       // 获取用户列表
