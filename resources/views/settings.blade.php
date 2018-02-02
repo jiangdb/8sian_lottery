@@ -47,9 +47,13 @@
                                     <input type="checkbox" name="allow_winners" {{ (!empty($settings) && $settings->allow_winners == 1) ? 'checked' : '' }} value="1" style="width: 30px; height: 30px; float: left;"><label for="allow_winners" style="position:relative; top:7px;">允许中奖人参与</label>
                                 </div>
                                 <div style="clear: both;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="winners_count" class="col-md-3 control-label"></label>
                                 <div class="col-md-6">
                                     <input type="checkbox" name="allow_win" {{ (!empty($settings) && $settings->allow_win == 1) ? '' : 'checked' }} value="0" style="width: 30px; height: 30px; float: left;"><label for="allow_winners" style="position:relative; top:7px;">排除部分人员</label>
                                 </div>
+                                <div style="clear: both;"></div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-8" style="text-align: center; float:none; margin: 0 auto;">
