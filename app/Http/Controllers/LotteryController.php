@@ -12,7 +12,7 @@ class LotteryController extends Controller
 {
     public function checkIfStart()
     {
-        $settings = LotterySettings::find(1);
+        /*$settings = LotterySettings::find(1);
         $result['status'] = 0;
         if (!empty($settings)) {
             if ($settings->lottery_status) {
@@ -35,7 +35,7 @@ class LotteryController extends Controller
             }
         } else {
             $result['winners'] = '';
-        }
+        }*/
 
         $result['users_count'] = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->count();
 
@@ -64,7 +64,7 @@ class LotteryController extends Controller
             $options
         );
 
-        $data['message'] = 1;
+        $data['message'] = json_encode(array('status' => 1));
         $res = $pusher->trigger('my-channel', 'my-event', $data);
 
         return redirect(route('lottery.setting'));
@@ -85,6 +85,8 @@ class LotteryController extends Controller
         } else {
             $winners_count = $settings->winners_count;
         }
+
+        $winners = array();
         if ($winners_count > 0) {
             $random_ids = array_random($ids, $winners_count);
             foreach ($random_ids as $id) {
@@ -94,6 +96,7 @@ class LotteryController extends Controller
                     'grade_times' => $settings->prize_grade_times
                 ]);
             }
+            $winners = LotteryUsers::whereIn('id', $random_ids)->select('card_no')->get()->pluck('card_no');
         }
 
         $settings->lottery_status = 0;
@@ -110,7 +113,8 @@ class LotteryController extends Controller
             $options
         );
 
-        $data['message'] = 0;
+        $push_datas = array('status' => 0, 'winners' => $winners);
+        $data['message'] = json_encode($push_datas);
         $pusher->trigger('my-channel', 'my-event', $data);
 
         return redirect(route('lottery.setting'));
