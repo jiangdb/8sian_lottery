@@ -42,8 +42,6 @@ class LotteryController extends Controller
         $push_datas = array('status' => 1, 'count' => $settings->winners_count);
         $data['message'] = json_encode($push_datas);
         $res = $pusher->trigger('my-channel', 'my-event', $data);
-        \Log::info("push start datas : " . $data['message']);
-        \Log::info("push start result : " . $res);
 
         return redirect(route('lottery.setting'));
     }
@@ -94,8 +92,6 @@ class LotteryController extends Controller
         $push_datas = array('status' => 0, 'winners' => $winners);
         $data['message'] = json_encode($push_datas);
         $res = $pusher->trigger('my-channel', 'my-event', $data);
-        \Log::info("push stop datas : " . $data['message']);
-        \Log::info("push stop result : " . $res);
 
         return redirect(route('lottery.setting'));
     }
