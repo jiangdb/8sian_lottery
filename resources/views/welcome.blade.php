@@ -44,7 +44,7 @@
             subtitle: "company",
             // desc: "title",
             speed: 100,
-            user: "{{ Auth::user()->id }}",
+            user: "{{ Auth::user()->card_no }}",
         });
 
         // Enable pusher logging - don't include this in production
