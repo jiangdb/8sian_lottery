@@ -64,7 +64,8 @@ class LotteryController extends Controller
             $options
         );
 
-        $data['message'] = json_encode(array('status' => 1));
+        $push_datas = array('status' => 1, 'count' => $settings->winners_count);
+        $data['message'] = json_encode($push_datas);
         $res = $pusher->trigger('my-channel', 'my-event', $data);
 
         return redirect(route('lottery.setting'));
