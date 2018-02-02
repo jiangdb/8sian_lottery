@@ -50,6 +50,14 @@ class LotteryController extends Controller
             '467342',
             $options
         );
+        /*
+        $pusher = new \Pusher\Pusher(
+            '7cd7c85d75944ee9cea8',
+            '6f5e81fa6ee6f217f25a',
+            '467353',
+            $options
+        );
+         */
 
         $push_datas = array('status' => 1, 'count' => $settings->winners_count);
         $data['message'] = json_encode($push_datas);
@@ -100,6 +108,14 @@ class LotteryController extends Controller
             '467342',
             $options
         );
+        /*
+        $pusher = new \Pusher\Pusher(
+            '7cd7c85d75944ee9cea8',
+            '6f5e81fa6ee6f217f25a',
+            '467353',
+            $options
+        );
+         */
 
         $push_datas = array('status' => 0, 'winners' => $winners);
         $data['message'] = json_encode($push_datas);

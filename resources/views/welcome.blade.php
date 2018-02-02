@@ -54,6 +54,12 @@
         cluster: 'ap1',
         encrypted: true
         });
+        /*
+        var pusher = new Pusher('7cd7c85d75944ee9cea8', {
+            cluster: 'ap1',
+            encrypted: true
+        });
+        */
 
         var started = false;
         var channel = pusher.subscribe('my-channel');
