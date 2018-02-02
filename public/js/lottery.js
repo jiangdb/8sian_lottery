@@ -278,7 +278,7 @@
     }
 
     //添加未中奖者dom
-    var pushLoser = function() {
+    var pushLoser = function(index) {
       var el = $(`
           <div class='profile-item loser-item'>
             <div class='loser-cotent'>Hey!<br>Loser!</div>
@@ -385,7 +385,13 @@
         console.log(winnerProfile[0]);
         pushWinner(winnerProfile[0]);
       } else {
-        pushLoser();
+        pushLoser(getRandomInt(1, 5));
+      }
+
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
       }
 
       // 根据中奖者人数调整双栏布局和文字大小
