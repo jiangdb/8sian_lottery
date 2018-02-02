@@ -109,10 +109,11 @@
       //注册dom事件
       $('#dh-lottery-go').click(function() {
         if (lotteryInterval) {
-          return stopLottery([5],"lose");
+          // return stopLottery([5],"lose");
+          return stopLottery();
         } else {
-          settings.winnerList = [];
-          settings.number = 1;
+          // settings.winnerList = [];
+          // settings.number = 1;
           return startLottery();
         }
       });
@@ -284,9 +285,7 @@
       var el = $(`
           <div class='profile-item loser-item'>
             <div class="avatar-image">
-              <div class="avatar">
-                <span class="image avatar-image"><img src="/img/pic-`+index+`.png" alt="avatar"></span>
-              </div>
+            <div class="avatar"><span class="image avatar-image"><img src="http://p3iofnt9s.bkt.clouddn.com/lottery/loser-`+index+`.png" alt="avatar"></span></div>
             </div>
             <div class='loser-cotent'>Hey Loser!</div>
           </div>
