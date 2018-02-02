@@ -57,6 +57,7 @@
 
         var started = false;
         var channel = pusher.subscribe('my-channel');
+        var historyApi = "{{ route('lottery.winners') }}";
         channel.bind('my-event', function(data) {
             console.log(data);
             var res = JSON.parse(data.message);
@@ -84,7 +85,7 @@
                     }
                 }
                 })
-            },1000);
+            },5000);
         }
         $(document).ready(function(){
             checkStart();
