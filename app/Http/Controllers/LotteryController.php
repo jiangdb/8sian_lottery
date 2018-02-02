@@ -163,7 +163,8 @@ class LotteryController extends Controller
         foreach ($users as $user) {
             array_push($datas, [
                 'name' => $user->name,
-                'avatar' => url('img/'.$user->card_no.'.png'),
+//                'avatar' => url('img/'.$user->card_no.'.png'),
+                'avatar' => 'http://p3iofnt9s.bkt.clouddn.com/lottery/'.$user->card_no.'.png',
                 'data' => array('id' => $user->id, 'card_no' => $user->card_no)
             ]);
         }
