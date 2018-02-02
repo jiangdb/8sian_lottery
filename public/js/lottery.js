@@ -71,7 +71,6 @@
       var btn = $("\
         <div class='actions'>\
           <a class='button primary' id='dh-history-show'>" + saveIconHtml + "</a>\
-          <a class='button primary' id='dh-lottery-go'>" + diceIconHtml + "</a>\
         </div>\
       ");
       //中奖用户展示弹框
