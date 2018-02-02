@@ -18,7 +18,9 @@
 
 <body>
 
-    <div class="lotterybox"></div>
+    <div class="lotterybox">
+        <div class="header"><img src="/img/header.jpg"></div>
+    </div>
 
     <!-- Zepto or jQuery -->
     <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
@@ -33,15 +35,15 @@
     <script src="/js/lottery.js"></script>
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
-    
+
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
-    
+
         var pusher = new Pusher('8fe8f50d614f0c8eccc6', {
         cluster: 'ap1',
         encrypted: true
         });
-    
+
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
         alert(data.message);
