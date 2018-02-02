@@ -282,7 +282,7 @@
       var el = $(`
           <div class='profile-item loser-item'>
             <div class="avatar-image">
-            <div class="avatar"><span class="image avatar-image"><img src="/img/pic-`+index+`.png" alt="avatar"></span></div>
+            <div class="avatar"><span class="image avatar-image"><img src="http://p3iofnt9s.bkt.clouddn.com/lottery/loser-`+index+`.png" alt="avatar"></span></div>
             </div>
             <div class='loser-cotent'>Hey!<br>Loser!</div>
           </div>
