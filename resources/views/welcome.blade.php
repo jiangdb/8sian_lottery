@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
     <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="/css/lottery.css" />
     <style>
         body {
             padding: 0;
@@ -35,6 +36,16 @@
     <script src="/js/lottery.js"></script>
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
+        var lottery = $.lottery({
+            el: '.lotterybox',
+            api: "{{ route('lottery.users') }}",
+            once: true,
+            title: "name",
+            subtitle: "company",
+            // desc: "title",
+            speed: 100,
+            user: "{{ Auth::user()->id }}",
+        });
 
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -44,54 +55,40 @@
         encrypted: true
         });
 
+        var started = false;
         var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
-        alert(data.message);
+            console.log(data);
+            var res = JSON.parse(data.message);
+            if (res.status == 0) {
+                if(started) {
+                    lottery.stop(res.winners);
+                    started = false;
+                }
+            } else {
+                if (!started) {
+                    lottery.start(res.count);
+                    started = true;
+                }
+            }
         });
-    </script>
-    <link rel="stylesheet" href="/css/lottery.css" />
-
-    <!-- ROCK ON -->
-    <script>
-      var lottery = $.lottery({
-        el: '.lotterybox',
-        api: "{{ route('lottery.users') }}",
-        once: true,
-        title: "name",
-        subtitle: "company",
-        // desc: "title",
-        speed: 100,
-        user: "{{ Auth::user()->id }}",
-      });
-      $(document).ready(function(){
-        //checkStart();
-      });
-      var checkStart = function(){
-        var started = false;
+        var checkStart = function(){
         setInterval(function(){
             $.ajax({
                 type: "GET",
                 url: "{{ route('lottery.check_start') }}",
                 dataType: 'json',
                 success: function(data){
-                    if (data.status == 0) {
-                        if(started) {
-                            lottery.stop(data.winners);
-                            started = false;
-                        }
-                    } else {
-                        if (!started) {
-                            lottery.start(data.count);
-                            started = true;
-                        }
-                    }
                     if (data.users_count != lottery.getUsers().length) {
                         location.reload();
                     }
                 }
                 })
-            },30000);
+            },1000);
         }
+        $(document).ready(function(){
+            checkStart();
+        });
     </script>
 
 </body>
