@@ -15,34 +15,22 @@ class LotteryUserSeeder extends Seeder
         DB::statement('truncate lottery_users');
         $users = array();
         array_push($users, [
-            'name' => 'user1',
+            'name' => '潘照青',
             'password' => Hash::make('123456'),
         ], [
-            'name' => 'user2',
+            'name' => '孙鼎',
             'password' => Hash::make('123456'),
         ], [
-            'name' => 'user3',
+            'name' => '蒋东斌',
             'password' => Hash::make('123456'),
         ], [
-            'name' => 'user4',
+            'name' => '刘亚楠',
             'password' => Hash::make('123456'),
         ], [
-            'name' => 'user5',
+            'name' => '陈晓华',
             'password' => Hash::make('123456'),
         ], [
-            'name' => 'user6',
-            'password' => Hash::make('123456'),
-        ], [
-            'name' => 'user7',
-            'password' => Hash::make('123456'),
-        ], [
-            'name' => 'user8',
-            'password' => Hash::make('123456'),
-        ], [
-            'name' => 'user9',
-            'password' => Hash::make('123456'),
-        ], [
-            'name' => 'user10',
+            'name' => '卓卫国',
             'password' => Hash::make('123456'),
         ]);
 
