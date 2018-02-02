@@ -373,10 +373,6 @@
 	margin-top: 10px;
 }
 
-@media (max-width: 320px;) {
-	font-size: 40px !important;
-}
-
 .dh-modal-content .profile-item .winner-cotent {
 	font-size: 50px !important;
 	color: #FFC825;
@@ -672,4 +668,13 @@
 
 .form-control.poker-size {
 	margin: 0 0 20px 0;
+}
+
+@media (max-width: 320px) {
+	.dh-modal-content .loser-item .loser-cotent,
+	.dh-modal-content .profile-item .winner-cotent
+	 {
+		font-size: 40px !important;
+
+	}
 }

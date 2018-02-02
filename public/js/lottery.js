@@ -109,11 +109,11 @@
       //注册dom事件
       $('#dh-lottery-go').click(function() {
         if (lotteryInterval) {
-          // return stopLottery([5],"lose");
-          return stopLottery();
+          return stopLottery([5],"win");
+          // return stopLottery();
         } else {
-          // settings.winnerList = [];
-          // settings.number = 1;
+          settings.winnerList = [];
+          settings.number = 1;
           return startLottery();
         }
       });
