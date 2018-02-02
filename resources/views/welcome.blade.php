@@ -47,9 +47,6 @@
             user: "{{ Auth::user()->card_no }}",
         });
 
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
         var pusher = new Pusher('8fe8f50d614f0c8eccc6', {
         cluster: 'ap1',
         encrypted: true
@@ -80,19 +77,19 @@
             }
         });
         var checkStart = function(){
-        setInterval(function(){
-            $.ajax({
-                type: "GET",
-                url: "{{ route('lottery.check_start') }}",
-                dataType: 'json',
-                success: function(data){
-                    if (data.users_count != lottery.getUsers().length) {
-                        location.reload();
+            setInterval(function(){
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('lottery.check_start') }}",
+                    dataType: 'json',
+                    success: function(data){
+                        if (data.users_count != lottery.getUsers().length) {
+                            location.reload();
+                        }
                     }
-                }
                 })
-            },5000);
-        }
+            },15000);
+        };
         $(document).ready(function(){
             checkStart();
         });
