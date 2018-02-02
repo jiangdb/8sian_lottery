@@ -46,6 +46,14 @@
         channel.bind('my-event', function(data) {
         alert(data.message);
         });
+
+        channel.bind('start-event', function(data) {
+            alert(data.message);
+        });
+
+        channel.bind('stop-event', function(data) {
+            alert(data.message);
+        });
     </script>
     <link rel="stylesheet" href="/css/lottery.css" />
 
