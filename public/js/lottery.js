@@ -388,7 +388,7 @@
         console.log(winnerProfile[0]);
         pushWinner(winnerProfile[0]);
       } else {
-        pushLoser(getRandomInt(1, 5));
+        pushLoser(getRandomInt(1, 10));
       }
 
       function getRandomInt(min, max) {
