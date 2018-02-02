@@ -357,9 +357,22 @@
       settings.$el.removeClass('running-lottery')
       console.log('Lottery: stoping...');
       clearTimeout(lotteryTimeout);
+      clearInterval(lotteryInterval);
+      lotteryInterval = null;      
       // 清空中奖dom和本轮获奖者名单
       $("#dh-lottery-winner .dh-modal-content").html("");
       settings.winners = [];
+      winners.forEach(function(winner){
+        var index = settings.data.findIndex(function(item){
+          return item.data.data.card_no;
+        });
+        if (index !== -1) {
+          currentTarget.push(settings.data[index].id);
+        }
+      });
+      for (var i = 0; i < currentTarget.length; i++) {
+        moveToTarget(i, currentTarget[i]);
+      }
       // 更新本轮中奖者信息
       if (flag == 'win') {
         for (var i = 0; i < currentTarget.length; i++) {
@@ -383,7 +396,6 @@
         $(".dh-modal-content .profile-item").css('font-size', '90px');
         $("#dh-lottery-winner .dh-modal-content").addClass('dh-solowinner');
       }
-      clearInterval(lotteryInterval);
       console.log("Lottery: Ignore user #",settings.winnerList);
       if (flag == 'win') {
         if(settings.confetti){
@@ -397,7 +409,6 @@
         return $('#dh-lottery-winner').addClass('is-active');
       }, 700);
 
-      lotteryInterval = null;
       $('#dh-lottery-go').removeClass('success').addClass('primary').html(diceIconHtml);
       // 保存中奖信息到中奖纪录
       var history = {};
