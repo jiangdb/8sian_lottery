@@ -12,7 +12,8 @@ class LotteryUserSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('truncate lottery_users');
+        DB::statement('truncate lottery_users;');
+        DB::statement('truncate winners;');
         $users = array();
         array_push($users, [
             'name' => '李贝娜',
