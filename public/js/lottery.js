@@ -73,6 +73,7 @@
           <a class='button primary' id='dh-history-show'>" + saveIconHtml + "</a>\
         </div>\
       ");
+      //<a class='button primary' id='dh-lottery-go'>" + diceIconHtml + "</a>\
       //中奖用户展示弹框
       var modal = $("\
         <div class='dh-animated dh-modal" + (isAppleOs ? ' is-mac': '') + "' id='dh-lottery-winner'>\
@@ -108,7 +109,7 @@
       //注册dom事件
       $('#dh-lottery-go').click(function() {
         if (lotteryInterval) {
-          return stopLottery([5],"win");
+          return stopLottery([43],"win");
           // return stopLottery();
         } else {
           settings.winnerList = [];
@@ -156,7 +157,8 @@
         }
         if (e.keyCode == 32) {
           if ($('#dh-lottery-winner').hasClass('is-active')) return;
-          return $('#dh-lottery-go').click();
+          return;
+          //return $('#dh-lottery-go').click();
         }
         if (e.keyCode == 70) {
           function launchFullscreen(element) {
@@ -382,6 +384,7 @@
       for (var i = 0; i < currentTarget.length; i++) {
         moveToTarget(i, currentTarget[i]);
       }
+      $('body').scrollTop(0);
       // 更新本轮中奖者信息
       if (flag == 'win') {
         var winnerProfile = settings.data.filter(function( obj ) {
@@ -422,7 +425,7 @@
         return $('#dh-lottery-winner').addClass('is-active');
       }, 700);
 
-      $('#dh-lottery-go').removeClass('success').addClass('primary').html(diceIconHtml);
+      //$('#dh-lottery-go').removeClass('success').addClass('primary').html(diceIconHtml);
       // 保存中奖信息到中奖纪录
       var history = {};
       history.time = (new Date()).toLocaleString();
@@ -445,17 +448,17 @@
       settings.$el.addClass('running-lottery')
       $('#dh-lottery-winner').removeClass('is-active');
       $('#dh-lottery-selector').show();
-      console.log("$('#dh-lottery-selector').show();")
+      //console.log("$('#dh-lottery-selector').show();")
       var runLottery = function () {
         currentTarget = [];
         $(".dh-lottery .profile.current").removeClass('current');
         for (var i = 0; i < settings.number; i++)  lotteryOnce(i);
-        console.log('Lottery: moveToTarget #', currentTarget);
+        //console.log('Lottery: moveToTarget #', currentTarget);
       }
       runLottery()
       lotteryInterval = setInterval(runLottery, settings.speed);
       if (settings.timeout) lotteryTimeout = setTimeout(stopLottery, settings.timeout * 1000);
-      $('#dh-lottery-go').removeClass('primary').addClass('success').html(okayIconHtml);
+      //$('#dh-lottery-go').removeClass('primary').addClass('success').html(okayIconHtml);
       return true;
     }
 
