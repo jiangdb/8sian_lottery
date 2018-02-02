@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use app\Log;
 use App\Models\LotterySettings;
 use App\Models\LotteryUsers;
 use App\Models\Winners;
@@ -12,33 +13,7 @@ class LotteryController extends Controller
 {
     public function checkIfStart()
     {
-        /*$settings = LotterySettings::find(1);
-        $result['status'] = 0;
-        if (!empty($settings)) {
-            if ($settings->lottery_status) {
-                $result['status'] = 1;
-                $result['count'] = $settings->winners_count;
-            } else {
-                $winners = Winners::with('lottery_users')
-                    ->where('grade', $settings->prize_grade)
-                    ->where('grade_times', $settings->prize_grade_times)
-                    ->get();
-                if (!empty($winners)) {
-                    $card_nos = array();
-                    foreach ($winners as $winner) {
-                        array_push($card_nos, $winner->lottery_users->card_no);
-                    }
-                    $result['winners'] = $card_nos;
-                } else {
-                    $result['winners'] = '';
-                }
-            }
-        } else {
-            $result['winners'] = '';
-        }*/
-
         $result['users_count'] = LotteryUsers::where('allow_lottery', 1)->whereNotNull('card_no')->count();
-
         return response()->json($result);
     }
 
@@ -66,7 +41,9 @@ class LotteryController extends Controller
 
         $push_datas = array('status' => 1, 'count' => $settings->winners_count);
         $data['message'] = json_encode($push_datas);
-        $res = $pusher->trigger('my-channel', 'my-event', $data);
+        $res = $pusher->trigger('my-channel', 'start-event', $data);
+        \Log::info("push start datas : " . $data['message']);
+        \Log::info("push start result : " . $res);
 
         return redirect(route('lottery.setting'));
     }
@@ -116,7 +93,9 @@ class LotteryController extends Controller
 
         $push_datas = array('status' => 0, 'winners' => $winners);
         $data['message'] = json_encode($push_datas);
-        $pusher->trigger('my-channel', 'my-event', $data);
+        $res = $pusher->trigger('my-channel', 'stop-event', $data);
+        \Log::info("push stop datas : " . $data['message']);
+        \Log::info("push stop result : " . $res);
 
         return redirect(route('lottery.setting'));
     }
@@ -163,7 +142,7 @@ class LotteryController extends Controller
             array_push($datas, [
                 'name' => $user->name,
                 'avatar' => url('img/'.$user->card_no.'.png'),
-                'data' => array('id' => $user->id)
+                'data' => array('id' => $user->id, 'card_no' => $user->card_no)
             ]);
         }
         return response()->json($datas);
